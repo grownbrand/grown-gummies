@@ -25,7 +25,8 @@ export default function Login({
       return redirect("/login?message=Could not authenticate user");
     }
 
-    return redirect("/protected");
+    // TODO: add a redirect to the dashboard for admin users. Redirect to the home page for regular users.
+    return redirect("/");
   };
 
   const signUp = async (formData: FormData) => {
