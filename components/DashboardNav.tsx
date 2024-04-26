@@ -13,29 +13,30 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 const dashLinks = [
   { icon: Home, label: "Dashboard", active: true, href: "/dashboard" },
   {
-    icon: ShoppingCart,
-    label: "Orders",
-    active: false,
-    href: "/dashboard/orders",
-  },
-  {
     icon: Package,
     label: "Products",
     active: false,
     href: "/dashboard/products",
   },
   {
-    icon: Users2,
-    label: "Customers",
+    icon: ShoppingCart,
+    label: "Orders",
     active: false,
-    href: "/dashboard/customers",
+    href: "/dashboard/orders",
   },
-  {
-    icon: LineChart,
-    label: "Analytics",
-    active: false,
-    href: "/dashboard/analytics",
-  },
+
+  // {
+  //   icon: Users2,
+  //   label: "Customers",
+  //   active: false,
+  //   href: "/dashboard/customers",
+  // },
+  // {
+  //   icon: LineChart,
+  //   label: "Analytics",
+  //   active: false,
+  //   href: "/dashboard/analytics",
+  // },
 ];
 
 export function DashboardNav() {
@@ -69,7 +70,7 @@ export function DashboardNav() {
         <Tooltip>
           <TooltipTrigger asChild>
             <Link
-              href="#"
+              href="/dashboard/settings"
               className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
             >
               <Settings className="h-5 w-5" />
