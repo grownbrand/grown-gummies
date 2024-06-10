@@ -102,12 +102,12 @@ export async function POST(request: NextRequest) {
         break;
       case "product.created":
         const productCreated = event.data.object as Stripe.Product;
-        handleProductCreated(productCreated);
+        await handleProductCreated(productCreated);
         console.log("[WEBHOOK] :: Product created", productCreated);
         break;
       case "product.updated":
         const productUpdated = event.data.object as Stripe.Product;
-        handleProductUpdated(productUpdated);
+        await handleProductUpdated(productUpdated);
         console.log("[WEBHOOK] :: Product updated", productUpdated);
         break;
       case "product.deleted":
