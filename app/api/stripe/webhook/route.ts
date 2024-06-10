@@ -24,7 +24,11 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
+    event = await stripe.webhooks.constructEventAsync(
+      body,
+      signature,
+      webhookSecret
+    );
   } catch (error: any) {
     console.error(`Error :: `, error);
     return new Response(`Stripe Webhook error :: ${error.message}`, {
