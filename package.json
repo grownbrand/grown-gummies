@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "createStripeProduct": "stripe trigger product.created --override"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.0.5",

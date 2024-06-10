@@ -2,25 +2,29 @@ import Stripe from "stripe";
 import { NextRequest } from "next/server";
 
 import { handleProductCreated, handleProductUpdated } from "@/db/products";
+import { stripe } from "@/utils/stripe";
 
 export async function POST(request: NextRequest) {
   const body = await request.text();
   const signature = request.headers.get("Stripe-Signature") as string;
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
+  let event: Stripe.Event;
 
   if (!body) {
     return new Response("Stripe Webhook event not found", { status: 400 });
   }
 
-  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
-
   if (!webhookSecret) {
     return new Response("Stripe Webhook secret not set", { status: 400 });
   }
 
-  let event: Stripe.Event;
+  if (!signature) {
+    return new Response("Stripe Webhook signature not found", { status: 400 });
+  }
 
   try {
-    event = Stripe.webhooks.constructEvent(body, signature, webhookSecret);
+    event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
   } catch (error) {
     console.error("Stripe Webhook error", error);
     return new Response("Stripe Webhook error", { status: 400 });
