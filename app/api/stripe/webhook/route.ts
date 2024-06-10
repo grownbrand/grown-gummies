@@ -90,43 +90,6 @@ export async function POST(request: NextRequest) {
         const customerDeleted = event.data.object as Stripe.Customer;
         console.log("[WEBHOOK] :: Customer deleted", customerDeleted);
         break;
-      case "invoice.created":
-        const invoiceCreated = event.data.object as Stripe.Invoice;
-        console.log("[WEBHOOK] :: Invoice created", invoiceCreated);
-        break;
-      case "invoice.updated":
-        const invoiceUpdated = event.data.object as Stripe.Invoice;
-        console.log("[WEBHOOK] :: Invoice updated", invoiceUpdated);
-        break;
-      case "invoice.payment_succeeded":
-        const invoicePaymentSucceeded = event.data.object as Stripe.Invoice;
-        console.log(
-          "[WEBHOOK] :: Invoice payment succeeded",
-          invoicePaymentSucceeded
-        );
-        break;
-      case "invoice.payment_failed":
-        const invoicePaymentFailed = event.data.object as Stripe.Invoice;
-        console.log(
-          "[WEBHOOK] :: Invoice payment failed",
-          invoicePaymentFailed
-        );
-        break;
-      case "invoice.finalized":
-        const invoiceFinalized = event.data.object as Stripe.Invoice;
-        console.log("[WEBHOOK] :: Invoice finalized", invoiceFinalized);
-        break;
-      case "invoice.marked_uncollectible":
-        const invoiceMarkedUncollectible = event.data.object as Stripe.Invoice;
-        console.log(
-          "[WEBHOOK] :: Invoice marked uncollectible",
-          invoiceMarkedUncollectible
-        );
-        break;
-      case "invoice.voided":
-        const invoiceVoided = event.data.object as Stripe.Invoice;
-        console.log("[WEBHOOK] :: Invoice voided", invoiceVoided);
-        break;
       case "product.created":
         const productCreated = event.data.object as Stripe.Product;
         console.log("[WEBHOOK] :: Product created", productCreated);

@@ -20,11 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={GeistSans.className}>
       <body className="bg-background text-foreground">
-        <TooltipProvider>
-          <main className="min-h-screen flex flex-col items-center">
-            {children}
-          </main>
-        </TooltipProvider>
+        <main className="min-h-screen flex flex-col items-center w-full">
+          {children}
+        </main>
       </body>
     </html>
   );

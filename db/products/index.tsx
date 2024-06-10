@@ -1,13 +1,11 @@
 import { supabase } from "@/utils/supabase";
 
 export async function handleProductCreated(product: any) {
-  const { id, name, description, images, active, metadata } = product;
+  const { id, name, description, images, active } = product;
 
   const { data, error } = await supabase
     .from("products")
-    .insert([
-      { stripe_id: id, name, price: 0, description, images, active, metadata },
-    ]);
+    .insert([{ stripe_id: id, name, price: 0, description, images, active }]);
   if (error) {
     throw new Error(error.message);
   }
