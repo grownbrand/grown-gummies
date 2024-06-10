@@ -26,10 +26,7 @@ export async function POST(request: NextRequest) {
   try {
     event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
   } catch (error: any) {
-    console.error(
-      `Stripe Webhook error :: body - ${body}, rawBody - ${request.body} signature - ${signature}, whsec - ${webhookSecret}`,
-      error
-    );
+    console.error(`Error :: `, error);
     return new Response(`Stripe Webhook error :: ${error.message}`, {
       status: 400,
     });
@@ -101,17 +98,21 @@ export async function POST(request: NextRequest) {
         break;
       case "product.created":
         const productCreated = event.data.object as Stripe.Product;
-        console.log("[WEBHOOK] :: Product created", productCreated);
         handleProductCreated(productCreated);
+        console.log("[WEBHOOK] :: Product created", productCreated);
         break;
       case "product.updated":
         const productUpdated = event.data.object as Stripe.Product;
-        console.log("[WEBHOOK] :: Product updated", productUpdated);
         handleProductUpdated(productUpdated);
+        console.log("[WEBHOOK] :: Product updated", productUpdated);
         break;
       case "product.deleted":
         const productDeleted = event.data.object as Stripe.Product;
         console.log("[WEBHOOK] :: Product deleted", productDeleted);
+        break;
+      case "price.created":
+        const priceCreated = event.data.object as Stripe.Price;
+        console.log("[WEBHOOK] :: Price created", priceCreated);
         break;
       default:
         console.log(`Unhandled event type ${event.type}`);
