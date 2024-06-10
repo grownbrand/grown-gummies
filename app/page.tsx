@@ -2,9 +2,13 @@ import { createClient } from "@/utils/supabase/server";
 
 export default async function Index() {
   const supabase = createClient();
-  const { data: Products, error } = await supabase.from("products").select("*");
+  const { data: products, error } = await supabase.from("products").select("*");
 
-  console.log(Products || error);
-
-  return <div>Home page loading</div>;
+  return (
+    <div>
+      <p>Home page</p>
+      {products &&
+        products.map((product) => <p key={product.id}>{product.name}</p>)}
+    </div>
+  );
 }

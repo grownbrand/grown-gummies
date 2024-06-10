@@ -1,0 +1,28 @@
+import { supabase } from "@/utils/supabase";
+
+export async function handleProductCreated(product: any) {
+  const { id, name, description, images, active, metadata } = product;
+
+  const { data, error } = await supabase
+    .from("products")
+    .insert([
+      { stripe_id: id, name, price: 0, description, images, active, metadata },
+    ]);
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
+}
+
+export async function handleProductUpdated(product: any) {
+  const { id, name, description, images, active } = product;
+
+  const { data, error } = await supabase
+    .from("products")
+    .update({ name, description, images, active })
+    .eq("stripe_id", id);
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
+}
