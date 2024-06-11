@@ -1,6 +1,5 @@
 import "./globals.css";
 import { GeistSans } from "geist/font/sans";
-import { TooltipProvider } from "@/components/ui/tooltip";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
