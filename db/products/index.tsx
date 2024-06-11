@@ -24,3 +24,16 @@ export async function handleProductUpdated(product: any) {
   }
   return data;
 }
+
+export async function handleProductDeleted(product: any) {
+  const { id } = product;
+
+  const { data, error } = await supabase
+    .from("products")
+    .delete()
+    .eq("stripe_id", id);
+  if (error) {
+    throw new Error(error.message);
+  }
+  return;
+}

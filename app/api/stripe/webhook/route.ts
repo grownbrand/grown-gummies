@@ -1,7 +1,11 @@
 import Stripe from "stripe";
 import { NextRequest } from "next/server";
 
-import { handleProductCreated, handleProductUpdated } from "@/db/products";
+import {
+  handleProductCreated,
+  handleProductDeleted,
+  handleProductUpdated,
+} from "@/db/products";
 import { stripe } from "@/utils/stripe";
 
 export async function POST(request: NextRequest) {
@@ -112,14 +116,23 @@ export async function POST(request: NextRequest) {
         break;
       case "product.deleted":
         const productDeleted = event.data.object as Stripe.Product;
+        await handleProductDeleted(productDeleted);
         console.log("[WEBHOOK] :: Product deleted", productDeleted);
         break;
       case "price.created":
         const priceCreated = event.data.object as Stripe.Price;
         console.log("[WEBHOOK] :: Price created", priceCreated);
         break;
+      case "price.updated":
+        const priceUpdated = event.data.object as Stripe.Price;
+        console.log("[WEBHOOK] :: Price updated", priceUpdated);
+        break;
+      case "price.deleted":
+        const priceDeleted = event.data.object as Stripe.Price;
+        console.log("[WEBHOOK] :: Price deleted", priceDeleted);
+        break;
       default:
-        console.log(`Unhandled event type ${event.type}`);
+        console.log(`Unhandled event type :: ${event.type}`);
     }
   } catch (error) {
     console.error("Stripe Webhook event error", error);
